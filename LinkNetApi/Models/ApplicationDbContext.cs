@@ -18,6 +18,7 @@ namespace LinkNetApi.Models
         }
         public DbSet<User> User { get; set; } = default!;
         public DbSet<LinkNetApi.Models.Article> Article { get; set; } = default!;
+        public DbSet<LinkNetApi.Models.Comment> Comment { get; set; } = default!;
 
         //public DbSet<YourEntity> YourEntities { get; set; }
     }
