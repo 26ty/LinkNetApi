@@ -1,0 +1,37 @@
+﻿<Properties StartupConfiguration="{77230468-6AB1-436D-B5B1-F97F5BEBC8D0}|https">
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.LinkNetApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workbench ActiveDocument="LinkNetApi/Models/User.cs">
+    <Files>
+      <File FileName="LinkNetApi/appsettings.json" />
+      <File FileName="LinkNetApi/Startup.cs" />
+      <File FileName="LinkNetApi/Program.cs" />
+      <File FileName="LinkNetApi/Models/User.cs" Line="15" Column="1" />
+      <File FileName="LinkNetApi/Models/Article.cs" />
+      <File FileName="LinkNetApi/Controllers/WeatherForecastController.cs" />
+      <File FileName="LinkNetApi/Controllers/UsersController.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="LinkNetApi" expanded="True">
+            <Node name="LinkNetApi" expanded="True">
+              <Node name="Dependencies" expanded="True">
+                <Node name="PackageDependencies" expanded="True" />
+              </Node>
+              <Node name="Controllers" expanded="True" />
+              <Node name="Models" expanded="True">
+                <Node name="User.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
