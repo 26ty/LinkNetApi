@@ -26,6 +26,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//cors配置
+app.UseCors(builder => builder
+    .WithOrigins("http://localhost:4200")
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials());
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
