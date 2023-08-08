@@ -80,20 +80,49 @@ namespace LinkNetApi.Controllers
             return NoContent();
         }
 
+        //// POST: api/Users
+        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //[HttpPost]
+        //public async Task<ActionResult<User>> PostUser(User user)
+        //{
+        //  if (_context.User == null)
+        //  {
+        //      return Problem("Entity set 'ApplicationDbContext.User'  is null.");
+        //  }
+        //    _context.User.Add(user);
+        //    await _context.SaveChangesAsync();
+
+        //    return CreatedAtAction(nameof(GetUser), new { id = user.id }, user);
+        //}
+
         // POST: api/Users
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<User>> PostUser(User user)
+        public async Task<ActionResult<Response>> PostUser(User user)
         {
-          if (_context.User == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.User'  is null.");
-          }
+            Response response = new Response
+            {
+                data = user
+            };
+            //PostUserRes res = new PostUserRes
+            //{
+            //    //statusCode = 200,
+            //    user = user
+            //};
+            if (_context.User == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.User'  is null.");
+            }
+            else
+            {
+                response.statusCode = 200;
+            }
             _context.User.Add(user);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetUser", new { id = user.id }, user);
+            return CreatedAtAction(nameof(GetUser), new { id = user.id }, response);
         }
+
 
         // DELETE: api/Users/5
         [HttpDelete("{id}")]

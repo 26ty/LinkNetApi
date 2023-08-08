@@ -24,18 +24,6 @@ namespace LinkNetApi.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] Login request)
         {
-            //// 查找符合帳號的用戶
-            //var user = await _context.User.FirstOrDefaultAsync(u => u.username == request.username);
-
-            //// 如果找不到用戶或密碼不正確，返回失敗提示
-            //if (user == null || user.password != request.password)
-            //{
-            //    //return BadRequest("帳號或密碼輸入錯誤");
-            //    return BadRequest(new { massage = "帳號或密碼輸入錯誤，登入失敗" });
-            //}
-
-            //// 驗證成功，返回成功提示
-            //return Ok(new {status=200, message= "登入成功" });
             // 檢查是否輸入了帳號和密碼
             if (string.IsNullOrEmpty(request.username) || string.IsNullOrEmpty(request.password))
             {
@@ -60,7 +48,7 @@ namespace LinkNetApi.Controllers
                 }
 
                 // 驗證成功，返回成功提示
-                return Ok(new { code = 200, message = "登入成功！" });
+                return Ok(new { code = 200, message = "登入成功！" , userId = user.id });
             }
             catch (Exception)
             {

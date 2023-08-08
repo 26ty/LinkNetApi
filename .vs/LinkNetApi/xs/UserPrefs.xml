@@ -1,42 +1,34 @@
 ﻿<Properties StartupConfiguration="{77230468-6AB1-436D-B5B1-F97F5BEBC8D0}|https">
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="LinkNetApi/Program.cs">
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="LinkNetApi/Controllers/LoginController.cs">
     <Files>
-      <File FileName="LinkNetApi/appsettings.json" />
-      <File FileName="LinkNetApi/Startup.cs" />
-      <File FileName="LinkNetApi/Program.cs" Line="29" Column="9" />
-      <File FileName="LinkNetApi/Models/User.cs" Line="22" Column="1" />
-      <File FileName="LinkNetApi/Models/Article.cs" Line="8" Column="31" />
-      <File FileName="LinkNetApi/Controllers/WeatherForecastController.cs" />
-      <File FileName="LinkNetApi/Controllers/UsersController.cs" />
-      <File FileName="LinkNetApi/Controllers/ArticlesController.cs" Line="115" Column="22" />
-      <File FileName="LinkNetApi/WeatherForecast.cs" />
-      <File FileName="LinkNetApi/Models/Comment.cs" />
-      <File FileName="LinkNetApi/Controllers/CommentsController.cs" />
-      <File FileName="LinkNetApi/Models/Login.cs" Line="8" Column="8" />
-      <File FileName="LinkNetApi/Controllers/LoginController.cs" Line="30" Column="14" NotebookId="1" />
-      <File FileName="LinkNetApi/Models/ApplicationDbContext.cs" NotebookId="1" />
+      <File FileName="LinkNetApi/Controllers/UsersController.cs" Line="83" Column="9" />
+      <File FileName="LinkNetApi/Models/Login.cs" Line="1" Column="1" />
+      <File FileName="LinkNetApi/Models/ApplicationDbContext.cs" Line="1" Column="1" />
+      <File FileName="LinkNetApi/Models/User.cs" Line="22" Column="6" NotebookId="1" />
+      <File FileName="LinkNetApi/Controllers/LoginController.cs" Line="1" Column="1" NotebookId="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="LinkNetApi" expanded="True">
-            <Node name="LinkNetApi" expanded="True">
+          <Node name="LinkNetApi">
+            <Node name="LinkNetApi">
               <Node name="Dependencies" expanded="True">
                 <Node name="PackageDependencies" expanded="True" />
               </Node>
-              <Node name="Controllers" expanded="True" />
-              <Node name="Models" expanded="True" />
+              <Node name="Controllers">
+                <Node name="LoginController.cs" selected="True" />
+              </Node>
             </Node>
           </Node>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.ItemProperties.LinkNetApi PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
