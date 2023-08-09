@@ -115,7 +115,7 @@ namespace LinkNetApi.Controllers
             }
             else
             {
-                response.statusCode = 200;
+                response.status = 200;
             }
             _context.User.Add(user);
             await _context.SaveChangesAsync();

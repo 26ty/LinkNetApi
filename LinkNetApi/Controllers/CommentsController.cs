@@ -80,19 +80,43 @@ namespace LinkNetApi.Controllers
             return NoContent();
         }
 
+        //// POST: api/Comments
+        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //[HttpPost]
+        //public async Task<ActionResult<Comment>> PostComment(Comment comment)
+        //{
+        //  if (_context.Comment == null)
+        //  {
+        //      return Problem("Entity set 'ApplicationDbContext.Comment'  is null.");
+        //  }
+        //    _context.Comment.Add(comment);
+        //    await _context.SaveChangesAsync();
+
+        //    return CreatedAtAction("GetComment", new { id = comment.id }, comment);
+        //}
+
         // POST: api/Comments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Comment>> PostComment(Comment comment)
+        public async Task<ActionResult<Response>> PostComment(Comment comment)
         {
-          if (_context.Comment == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.Comment'  is null.");
-          }
+            Response response = new Response
+            {
+                data = comment
+            };
+
+            if (_context.Comment == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Comment'  is null.");
+            }
+            else
+            {
+                response.status = 200;
+            }
             _context.Comment.Add(comment);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetComment", new { id = comment.id }, comment);
+            return CreatedAtAction("GetComment", new { id = comment.id }, response);
         }
 
         // DELETE: api/Comments/5

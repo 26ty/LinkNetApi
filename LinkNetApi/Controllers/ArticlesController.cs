@@ -49,6 +49,21 @@ namespace LinkNetApi.Controllers
             return article;
         }
 
+        // GET: api/Articles/getUserArticles/5
+        [HttpGet("getUserArticles/{user_id}")]
+        public async Task<ActionResult<IEnumerable<Article>>> GetUserArticle(Guid user_id)
+        {
+            var articles = await _context.Article
+                .Where(a => a.user_id == user_id)
+                .ToListAsync();
+            if(articles == null || articles.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return articles;
+        }
+
         // PUT: api/Articles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -80,19 +95,43 @@ namespace LinkNetApi.Controllers
             return NoContent();
         }
 
+        //// POST: api/Articles
+        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //[HttpPost]
+        //public async Task<ActionResult<Article>> PostArticle(Article article)
+        //{
+        //  if (_context.Article == null)
+        //  {
+        //      return Problem("Entity set 'ApplicationDbContext.Article'  is null.");
+        //  }
+        //    _context.Article.Add(article);
+        //    await _context.SaveChangesAsync();
+
+        //    return CreatedAtAction("GetArticle", new { id = article.id }, article);
+        //}
+
         // POST: api/Articles
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Article>> PostArticle(Article article)
+        public async Task<ActionResult<Response>> PostArticle(Article article)
         {
-          if (_context.Article == null)
-          {
-              return Problem("Entity set 'ApplicationDbContext.Article'  is null.");
-          }
+            Response response = new Response
+            {
+                data = article
+            };
+
+            if (_context.Article == null)
+            {
+                return Problem("Entity set 'ApplicationDbContext.Article'  is null.");
+            }
+            else
+            {
+                response.status = 200;
+            }
             _context.Article.Add(article);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetArticle", new { id = article.id }, article);
+            return CreatedAtAction("GetArticle", new { id = article.id }, response);
         }
 
         // DELETE: api/Articles/5
