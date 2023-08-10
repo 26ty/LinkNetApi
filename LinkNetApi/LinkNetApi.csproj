@@ -24,8 +24,10 @@
 
   <ItemGroup>
     <None Remove="Models\" />
+    <None Remove="File\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
+    <Folder Include="File\" />
   </ItemGroup>
 </Project>

@@ -8,7 +8,6 @@ namespace LinkNetApi.Models
         public string ?content { get; set; }
         public string ?img_url { get; set; }
         public Guid user_id { get; set; }
-        //public User ?user { get; set; }
         public DateTime created_at { get; set; }
         public DateTime updated_at { get; set; }
     }

@@ -158,5 +158,58 @@ namespace LinkNetApi.Controllers
         {
             return (_context.Article?.Any(e => e.id == id)).GetValueOrDefault();
         }
+
+
+        /*圖片*/
+        
+
+        [HttpPost("upload")]
+        public IActionResult UploadImage(IFormFile imageFile)
+        {
+            try
+            {
+                if (imageFile == null)
+                {
+                    return BadRequest("No image file uploaded.");
+                }
+
+                string fileName = imageFile.FileName;
+                byte[] imageBytes;
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    imageFile.CopyTo(memoryStream);
+                    imageBytes = memoryStream.ToArray();
+                }
+
+                String imagePath = SaveImageToFile(imageBytes, fileName);
+
+                //return Ok("Image uploaded successfully.");
+                return Ok(imagePath);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Error uploading image: " + ex.Message);
+            }
+        }
+
+        private String SaveImageToFile(byte[] imageBytes, string fileName)
+        {
+            string imagePath = Path.Combine("File", fileName);
+
+            using (FileStream fs = new FileStream(imagePath, FileMode.Create))
+            {
+                fs.Write(imageBytes, 0, imageBytes.Length);
+            }
+
+            return imagePath;
+        }
+
+
+    }
+
+    public class ImageUploadModel
+    {
+        public string Base64Image { get; set; }
     }
 }
