@@ -159,12 +159,10 @@ namespace LinkNetApi.Controllers
             return (_context.Article?.Any(e => e.id == id)).GetValueOrDefault();
         }
 
-
-        /*圖片*/
-        
-
-        [HttpPost("upload")]
-        public IActionResult UploadImage(IFormFile imageFile)
+        // POST: api/Articles/uploadImageFile
+        // 圖片上傳
+        [HttpPost("uploadImageFile")]
+        public ActionResult<Response> PostImage(IFormFile imageFile)
         {
             try
             {
@@ -184,8 +182,15 @@ namespace LinkNetApi.Controllers
 
                 String imagePath = SaveImageToFile(imageBytes, fileName);
 
+                Response response = new Response
+                {
+                    status = 200,
+                    message = "ImageFile upload success!",
+                    data = imagePath
+                };
+
                 //return Ok("Image uploaded successfully.");
-                return Ok(imagePath);
+                return response;
             }
             catch (Exception ex)
             {
@@ -202,9 +207,31 @@ namespace LinkNetApi.Controllers
                 fs.Write(imageBytes, 0, imageBytes.Length);
             }
 
-            return imagePath;
+            return fileName;
         }
 
+
+        private readonly string _imageFolderPath = "File"; // 圖片資料夾路徑
+
+
+        // GET: api/Articles/ImageFile
+        /*圖片上傳*/
+        [HttpGet("getImageFile/{imageName}")]
+        public IActionResult GetImage(string imageName)
+        {
+            try
+            {
+                var imagePath = Path.Combine(_imageFolderPath, imageName);
+                var imageBytes = System.IO.File.ReadAllBytes(imagePath);
+
+                return File(imageBytes, "image/jpeg"); 
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Error get image: " + ex.Message);
+            }
+            
+        }
 
     }
 

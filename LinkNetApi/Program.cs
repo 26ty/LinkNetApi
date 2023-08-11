@@ -33,7 +33,10 @@ if (app.Environment.IsDevelopment())
 
 builder.Services.AddHttpContextAccessor();
 
-//cors配置
+// 添加这行代码以启用静态文件中间件
+app.UseStaticFiles(); 
+
+// cors配置
 app.UseCors(builder => builder
     .WithOrigins("http://localhost:4200")
     .AllowAnyMethod()
