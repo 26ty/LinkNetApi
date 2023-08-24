@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LinkNetApi.Models;
+using System.Net.Http;
+using System.Net;
 
 namespace LinkNetApi.Controllers
 {
@@ -136,23 +138,42 @@ namespace LinkNetApi.Controllers
 
         // DELETE: api/Articles/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteArticle(Guid id)
+        public async Task<HttpResponseMessage> DeleteArticle(Guid id)
         {
             if (_context.Article == null)
             {
-                return NotFound();
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
             }
             var article = await _context.Article.FindAsync(id);
             if (article == null)
             {
-                return NotFound();
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
             }
 
             _context.Article.Remove(article);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
+        //// DELETE: api/Articles/5
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteArticle(Guid id)
+        //{
+        //    if (_context.Article == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var article = await _context.Article.FindAsync(id);
+        //    if (article == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    _context.Article.Remove(article);
+        //    await _context.SaveChangesAsync();
+
+        //    return NoContent();
+        //}
 
         private bool ArticleExists(Guid id)
         {

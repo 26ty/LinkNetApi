@@ -138,6 +138,25 @@ namespace LinkNetApi.Controllers
 
             return NoContent();
         }
+        //// DELETE: api/Comments/5
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> DeleteComment(Guid id)
+        //{
+        //    if (_context.Comment == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var comment = await _context.Comment.FindAsync(id);
+        //    if (comment == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    _context.Comment.Remove(comment);
+        //    await _context.SaveChangesAsync();
+
+        //    return NoContent();
+        //}
 
         private bool CommentExists(Guid id)
         {
