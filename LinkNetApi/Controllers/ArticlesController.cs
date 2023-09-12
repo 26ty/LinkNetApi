@@ -30,7 +30,7 @@ namespace LinkNetApi.Controllers
           {
               return NotFound();
           }
-            return await _context.Article.ToListAsync();
+            return await _context.Article.OrderByDescending(a => a.updated_at).ToListAsync();
         }
 
         // GET: api/Articles/5
@@ -51,12 +51,13 @@ namespace LinkNetApi.Controllers
             return article;
         }
 
-        // GET: api/Articles/getUserArticles/5
+        // GET: api/Articles/getUserArticles/user
         [HttpGet("getUserArticles/{user_id}")]
         public async Task<ActionResult<IEnumerable<Article>>> GetUserArticle(Guid user_id)
         {
             var articles = await _context.Article
                 .Where(a => a.user_id == user_id)
+                .OrderByDescending(a => a.updated_at)
                 .ToListAsync();
             if(articles == null || articles.Count == 0)
             {
@@ -66,11 +67,65 @@ namespace LinkNetApi.Controllers
             return articles;
         }
 
+        // GET: api/Articles/getRandomArticles/5
+        [HttpGet("getRandomArticles/{count?}")]
+        public async Task<ActionResult<IEnumerable<Article>>> GetRandomArticles(int? count = null)
+        {
+            if(count.HasValue && count.Value <= 0)
+            {
+                return BadRequest("Count must be a positive number.");
+            }
+
+            //var random = new Random();
+            var randomArticles = await _context.Article
+                .OrderBy(a => Guid.NewGuid()) // 使用Guid.NewGuid()生成隨機排序
+                .Take(count.Value)
+                .ToListAsync();
+
+            return randomArticles;
+        }
+
+        //// PUT: api/Articles/5
+        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutArticle(Guid id, Article article)
+        //{
+        //    if (id != article.id)
+        //    {
+        //        return BadRequest();
+        //    }
+
+        //    _context.Entry(article).State = EntityState.Modified;
+
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!ArticleExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
+
+        //    return NoContent();
+        //}
+
         // PUT: api/Articles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutArticle(Guid id, Article article)
+        public async Task<ActionResult<Response>> PutArticle(Guid id, Article article)
         {
+            Response response = new Response
+            {
+                data = article
+            };
+
             if (id != article.id)
             {
                 return BadRequest();
@@ -81,6 +136,7 @@ namespace LinkNetApi.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                response.status = 200;
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -94,7 +150,7 @@ namespace LinkNetApi.Controllers
                 }
             }
 
-            return NoContent();
+            return CreatedAtAction(nameof(GetArticle), new { id = article.id }, response);
         }
 
         //// POST: api/Articles

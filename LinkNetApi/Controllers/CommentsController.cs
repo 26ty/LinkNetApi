@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using LinkNetApi.Models;
+using System.Net;
 
 namespace LinkNetApi.Controllers
 {
@@ -49,11 +50,63 @@ namespace LinkNetApi.Controllers
             return comment;
         }
 
+        // GET: api/Comments/getArticleComments/id
+        [HttpGet("getArticleComments/{article_id}")]
+        public async Task<ActionResult<IEnumerable<Comment>>> getArticleComments(Guid article_id)
+        {
+            var comments = await _context.Comment
+                .Where(a => a.article_id == article_id)
+                .OrderByDescending(a => a.created_at)
+                .ToListAsync();
+
+            if (comments == null || comments.Count == 0)
+            {
+                return NotFound();
+            }
+
+            Response response = new Response
+            {
+                status = 200,
+                data = comments
+            };
+
+            return comments;
+        }
+
+        //// GET: api/Comments/getArticleUserComment/{article_id}
+        //[HttpGet("getArticleUserComment/{article_id}")]
+        //public async Task<ActionResult<IEnumerable<Comment>>> getArticleUserComment(Guid article_id)
+        //{
+        //    var comments = await _context.Comment
+        //        .Where(a => a.article_id == article_id)
+        //        .Include(c => c.User) // 包含User对象的信息
+        //        .OrderByDescending(a => a.created_at)
+        //        .ToListAsync();
+
+        //    if (comments == null || comments.Count == 0)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    Response response = new Response
+        //    {
+        //        status = 200,
+        //        data = comments
+        //    };
+
+        //    return comments;
+        //}
+
         // PUT: api/Comments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutComment(Guid id, Comment comment)
+        public async Task<ActionResult<Response>> PutComment(Guid id, Comment comment)
         {
+            Response response = new Response
+            {
+                data = comment
+            };
+
             if (id != comment.id)
             {
                 return BadRequest();
@@ -64,6 +117,7 @@ namespace LinkNetApi.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+                response.status = 200;
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -77,7 +131,7 @@ namespace LinkNetApi.Controllers
                 }
             }
 
-            return NoContent();
+            return CreatedAtAction(nameof(GetComment), new { id = comment.id }, response);
         }
 
         //// POST: api/Comments
@@ -121,22 +175,22 @@ namespace LinkNetApi.Controllers
 
         // DELETE: api/Comments/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteComment(Guid id)
+        public async Task<HttpResponseMessage> DeleteComment(Guid id)
         {
             if (_context.Comment == null)
             {
-                return NotFound();
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
             }
             var comment = await _context.Comment.FindAsync(id);
             if (comment == null)
             {
-                return NotFound();
+                return new HttpResponseMessage(HttpStatusCode.NotFound);
             }
 
             _context.Comment.Remove(comment);
             await _context.SaveChangesAsync();
 
-            return NoContent();
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
         //// DELETE: api/Comments/5
         //[HttpDelete("{id}")]
