@@ -139,7 +139,7 @@ namespace LinkNetApi.Controllers
             _context.Collection.Remove(collection);
             await _context.SaveChangesAsync();
 
-            return new HttpResponseMessage(HttpStatusCode.NotFound);
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
 
         private bool CollectionExists(Guid id)
