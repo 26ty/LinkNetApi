@@ -36,11 +36,11 @@ user_id | INTEGER | 回覆者ID，外鍵參考User表格的id欄位
 article_id | INTEGER | 回覆對應的文章ID，外鍵參考Article表格的id欄位
 created_at | TIMESTAMP | 回覆建立時間
 updated_at | TIMESTAMP | 回覆最近更新時間
+
+
 ![image](https://github.com/26ty/LinkNetApi/assets/69799370/b1b4f780-8765-4a2e-9717-90604005e271)
 ![image](https://github.com/26ty/LinkNetApi/assets/69799370/9003aa3c-5d14-44db-9cde-d530a09c8930)
 ![image](https://github.com/26ty/LinkNetApi/assets/69799370/c17a6355-62e5-4fa2-9e83-4e9b9a01c8ab)
 ![image](https://github.com/26ty/LinkNetApi/assets/69799370/1b9c84af-8920-44b1-b569-8e6afaeb6eab)
-
-
 
 
