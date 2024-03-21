@@ -1,7 +1,8 @@
 # LinkNetApi
 ## LinkNetWeb的API
 #### 社群平台留言板主題資料表設計ER-Model:
-![](https://hackmd.io/_uploads/Byw8cTx23.png)
+![image](https://github.com/26ty/LinkNetApi/assets/69799370/220092a6-3459-4df0-9156-11d52e1fdbf1)
+
 1. User(使用者)表格
 
 欄位名稱 | 資料類型 | 說明
